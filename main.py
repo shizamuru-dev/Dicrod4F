@@ -143,7 +143,7 @@ async def on_message(message: discord.Message):
         elif message.content.startswith(settings["prefix"] + "you"):
             change_json_provider(str(message.channel.id), g4f.Provider.You)
             await message.channel.send("The provider has been successfully changed to: **You**")
-        elif message.content.startswith(settings["prefix"] + "chatgptAi"):
+        elif message.content.startswith(settings["prefix"] + "chatgptai"):
             change_json_provider(str(message.channel.id), g4f.Provider.ChatgptAi)
             await message.channel.send("The provider has been successfully changed to: **ChatgptAi**")
         else:
