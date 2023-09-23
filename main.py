@@ -34,7 +34,7 @@ async def run_provider(provider: g4f.Provider.AsyncProvider, promt: str):
         return response
     except Exception as e:
         print(f"{provider.__name__}:", e)
-        return "**Ошибка! Подождите чac-дpyгoй,если это не помогло, напишите _shizamuru**"
+        return "**Mistake! Wait an hour or two, if it didn't help, write _shizamuru**"
 
 
 def add_json_channel(channel_id: str, gpt: str, user: str):
@@ -130,22 +130,22 @@ async def on_message(message: discord.Message):
 
         if message.content.startswith(settings["prefix"] + "clear"):
             clear_json_channel(str(message.channel.id))
-            await message.channel.send("История успешно сообщений очищена!")
+            await message.channel.send("The history of successful messages has been cleared!")
         elif message.content.startswith(settings["prefix"] + "deepai"):
             change_json_provider(str(message.channel.id), g4f.Provider.DeepAi)
-            await message.channel.send("Провайдер успешно изменён на: **DeepAI**")
+            await message.channel.send("The provider has been successfully changed to: **DeepAI**")
         elif message.content.startswith(settings["prefix"] + "bing"):
             change_json_provider(str(message.channel.id), g4f.Provider.Bing)
-            await message.channel.send("Провайдер успешно изменён на: **Bing**")
+            await message.channel.send("The provider has been successfully changed to: **Bing**")
         elif message.content.startswith(settings["prefix"] + "openassistant"):
             change_json_provider(str(message.channel.id), g4f.Provider.OpenAssistant)
-            await message.channel.send("Провайдер успешно изменён на: **OpenAssistant**")
+            await message.channel.send("The provider has been successfully changed to: **OpenAssistant**")
         elif message.content.startswith(settings["prefix"] + "you"):
             change_json_provider(str(message.channel.id), g4f.Provider.You)
-            await message.channel.send("Провайдер успешно изменён на: **You**")
+            await message.channel.send("The provider has been successfully changed to: **You**")
         elif message.content.startswith(settings["prefix"] + "chatgptAi"):
             change_json_provider(str(message.channel.id), g4f.Provider.ChatgptAi)
-            await message.channel.send("Провайдер успешно изменён на: **ChatgptAi**")
+            await message.channel.send("The provider has been successfully changed to: **ChatgptAi**")
         else:
             history = str(get_json_channel(str(message.channel.id)))
 
