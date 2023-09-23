@@ -1,13 +1,57 @@
 import g4f
 import json
-import discord
 
+import nextcord
+from nextcord.ext import commands
 from Config.cfg import settings
 
-intents = discord.Intents.default()
+intents = nextcord.Intents.default()
 intents.message_content = True
+bot = commands.Bot(command_prefix='!',intents=intents)
 
-bot = discord.Client(intents=intents)
+
+@bot.slash_command(name="clear", description="Clear message history")
+async def clear_command(interaction: nextcord.Interaction):
+    clear_json_channel(str(interaction.channel.id))
+    await interaction.send("Message history cleared!")
+
+
+@bot.slash_command(name="deepai", description="Changes provider to DeepAi")
+async def deepai_command(interaction: nextcord.Interaction):
+    change_json_provider(str(interaction.channel.id), g4f.Provider.DeepAi)
+    await interaction.send("The provider has been successfully changed to: **DeepAI**")
+
+
+@bot.slash_command(name="bing", description="Changes provider to Bing")
+async def bing_command(interaction: nextcord.Interaction):
+    change_json_provider(str(interaction.channel.id), g4f.Provider.Bing)
+    await interaction.send("The provider has been successfully changed to: **Bing**")
+
+
+@bot.slash_command(name="openassistant", description="Changes provider to OpenAssistant")
+async def openassistant_command(interaction: nextcord.Interaction):
+    change_json_provider(str(interaction.channel.id), g4f.Provider.OpenAssistant)
+    await interaction.send("The provider has been successfully changed to: **OpenAssistant**")
+
+
+@bot.slash_command(name="you", description="Changes provider to You")
+async def you_command(interaction: nextcord.Interaction):
+    change_json_provider(str(interaction.channel.id), g4f.Provider.You)
+    await interaction.send("The provider has been successfully changed to: **You**")
+
+
+@bot.slash_command(name="chatgptai", description="Changes provider to ChatgptAi")
+async def chatgptAi_command(interaction: nextcord.Interaction):
+    change_json_provider(str(interaction.channel.id), g4f.Provider.ChatgptAi)
+    await interaction.send("The provider has been successfully changed to: **ChatgptAi**")
+
+
+@bot.slash_command(name="usage", description="Instructions for using the bot")
+async def usage_command(interaction: nextcord.Interaction):
+    embed = nextcord.Embed(title="Sample Embed", url="https://realdrewdata.medium.com/",
+                           description="This is an embed that will show how to build an embed and the different components",
+                           color=nextcord.Color.dark_theme())
+    await interaction.channel.send(embed=embed)
 
 
 def get_provider(name: str):
@@ -27,14 +71,15 @@ async def run_provider(provider: g4f.Provider.AsyncProvider, promt: str):
     try:
         response = await provider.create_async(
             model=g4f.models.default.name,
-            messages=[{"role": "user", "content": f"You can't write more than 2000 characters (in total), if you run into this threshold, put \"...\" (so that the total number of characters still does not exceed 2000) and when you are asked to add the remainder {promt}"}],
+            messages=[{"role": "user",
+                       "content": f"You can't write more than 2000 characters (in total), if you run into this threshold, put \"...\" (so that the total number of characters still does not exceed 2000) and when you are asked to add the remainder {promt}"}],
         )
         log = response[0:12]
         print(f"{provider.__name__}: {log}...")
         return response
     except Exception as e:
         print(f"{provider.__name__}:", e)
-        return "**Mistake! Wait an hour or two, if it didn't help, write _shizamuru**"
+        return "**Error! Wait an hour or two, if it didn't help, write _shizamuru**"
 
 
 def add_json_channel(channel_id: str, gpt: str, user: str):
@@ -121,7 +166,7 @@ async def on_ready():
 
 
 @bot.event
-async def on_message(message: discord.Message):
+async def on_message(message: nextcord.Message):
     if message.guild is not None:
         return
     else:
@@ -130,7 +175,7 @@ async def on_message(message: discord.Message):
 
         if message.content.startswith(settings["prefix"] + "clear"):
             clear_json_channel(str(message.channel.id))
-            await message.channel.send("The history of successful messages has been cleared!")
+            await message.channel.send("Message history cleared!")
         elif message.content.startswith(settings["prefix"] + "deepai"):
             change_json_provider(str(message.channel.id), g4f.Provider.DeepAi)
             await message.channel.send("The provider has been successfully changed to: **DeepAI**")
@@ -143,7 +188,7 @@ async def on_message(message: discord.Message):
         elif message.content.startswith(settings["prefix"] + "you"):
             change_json_provider(str(message.channel.id), g4f.Provider.You)
             await message.channel.send("The provider has been successfully changed to: **You**")
-        elif message.content.startswith(settings["prefix"] + "chatgptai"):
+        elif message.content.startswith(settings["prefix"] + "chatgptAi"):
             change_json_provider(str(message.channel.id), g4f.Provider.ChatgptAi)
             await message.channel.send("The provider has been successfully changed to: **ChatgptAi**")
         else:
