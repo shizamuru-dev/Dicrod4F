@@ -2,7 +2,9 @@
 # Discord4F
 
 **Attention**! For the base of this project, I took my previous one, that is, this one [\*Click\*](https://github.com/shizamuru-dev/MatrixGPT) what does their similarity in update time and functionality mean 💫
+
 And I almost forgot! At the moment, the bot is designed to work **ONLY** in private messages
+
 A little bit about functionality:
  - [x] 🤖 Support for private messages with the user
  - [x] 📝 Short-term memory ( 20 messages )
