@@ -27,7 +27,7 @@ async def run_provider(provider: g4f.Provider.AsyncProvider, promt: str):
     try:
         response = await provider.create_async(
             model=g4f.models.default.name,
-            messages=[{"role": "user", "content": f"You can't write more than 2000 characters (in total), if you run into this threshold, put "..." (so that the total number of characters still does not exceed 2000) and when you are asked to add the remainder {promt}"}],
+            messages=[{"role": "user", "content": f"You can't write more than 2000 characters (in total), if you run into this threshold, put \"...\" (so that the total number of characters still does not exceed 2000) and when you are asked to add the remainder {promt}"}],
         )
         log = response[0:12]
         print(f"{provider.__name__}: {log}...")
