@@ -12,7 +12,7 @@ A little bit about functionality:
  - [x] 💸 Free api for working with chatgpt
  - [x] 🔁 It is possible to change the provider by the user
  - [x] ⌨️ Using slash command
- - [ ] 🖲️Using PostgreSQL or SQLite as storage
+ - [x] 🖲️Using SQLite as storag
  - [ ] There could be your suggestion here...
 
 # Installing
