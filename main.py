@@ -110,7 +110,8 @@ def get_provider(name: str):
         return g4f.Provider.You
     elif name == "ChatgptAi":
         return g4f.Provider.ChatgptAi
-
+    elif name == "OpenaiChat":
+        return g4f.Provider.OpenaiChat
 
 async def run_provider(provider: g4f.Provider.AsyncProvider, promt: str):
     try:
@@ -157,7 +158,10 @@ async def on_message(message: nextcord.Message):
             await message.channel.send("The provider has been successfully changed to: **You**")
         elif message.content.startswith(settings["prefix"] + "chatgptAi"):
             change_row_provider(id, g4f.Provider.ChatgptAi)
-            await message.channel.send("Провайдер успешно изменён на: **ChatgptAi**")
+            await message.channel.send("The provider has been successfully changed to: **ChatgptAi**")
+        elif message.content.startswith(settings["prefix"] + "openai"):
+            change_row_provider(id, g4f.Provider.OpenaiChat)
+            await message.channel.send("The provider has been successfully changed to: **OpenAi**")
         else:
             history = get_row_history(id)
 
@@ -202,6 +206,12 @@ async def you_command(interaction: nextcord.Interaction):
 async def chatgptAi_command(interaction: nextcord.Interaction):
     change_row_provider(str(interaction.channel.id), g4f.Provider.ChatgptAi)
     await interaction.send("The provider has been successfully changed to: **ChatgptAi**")
+
+
+@bot.slash_command(name="openai", description="Changes provider to OpenAi")
+async def bing_command(interaction: nextcord.Interaction):
+    change_row_provider(str(interaction.channel.id), g4f.Provider.OpenaiChat)
+    await interaction.send("The provider has been successfully changed to: **OpenAi**")
 
 
 @bot.slash_command(name="usage", description="Instructions for using the bot")
