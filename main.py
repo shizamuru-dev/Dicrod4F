@@ -1,10 +1,12 @@
+import os
 import sys
 import g4f
-import json
 import sqlite3
+import pathlib
 import logging
 import nextcord
 
+from pathlib import Path
 from Config.cfg import settings
 from nextcord.ext import commands
 from logging import StreamHandler, Formatter
@@ -18,6 +20,10 @@ logger.addHandler(handler)
 intents = nextcord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
+
+if not pathlib.Path("./Storage").is_dir():
+    logger.info("Create \"Storage\" directory")
+    os.mkdir("./Storage")
 
 base = sqlite3.connect('./Storage/base.db')
 cursor = base.cursor()
