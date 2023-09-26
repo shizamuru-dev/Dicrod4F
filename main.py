@@ -236,7 +236,7 @@ async def usage_command(interaction: nextcord.Interaction):
 @bot.event
 async def on_ready():
     logger.info(f"Bot started as {bot.user}")
-    await bot.change_presence(activity=nextcord.Game(name="/usage - help command"))
+    await bot.change_presence(activity=nextcord.Game(name="/usage"))
     logger.info("Game changed...")
 
 bot.run(settings["token"])
