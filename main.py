@@ -104,14 +104,14 @@ def get_provider(name: str):
         return g4f.Provider.DeepAi
     elif name == "Bing":
         return g4f.Provider.Bing
-    elif name == "OpenAssistant":
-        return g4f.Provider.OpenAssistant
-    elif name == "You":
-        return g4f.Provider.You
+    elif name == "Acytoo":
+        return g4f.Provider.Acytoo
     elif name == "ChatgptAi":
         return g4f.Provider.ChatgptAi
-    elif name == "OpenaiChat":
-        return g4f.Provider.OpenaiChat
+    elif name == "GptGo":
+        return g4f.Provider.GptGo
+    elif name == "Yqcloud":
+        return g4f.Provider.Yqcloud
 
 async def run_provider(provider: g4f.Provider.AsyncProvider, promt: str):
     try:
@@ -229,7 +229,7 @@ async def usage_command(interaction: nextcord.Interaction):
                                        "provider to Yqcloud | GPT 3.5",
                            color=nextcord.Color.dark_theme())
     embed.set_thumbnail("https://media.zenfs.com/en/thedailybeast.com/ad5b0dbb8d02c304c9a8652c07771b3e")
-    embed.set_footer(text="Что за провайдеры? Провайдер - этог сайт через который идёт доступ к ChatGPT ")
+    embed.set_footer(text="What kind of providers? The provider is the site through which the ChatGPT is accessed")
     await interaction.channel.send(embed=embed)
 
 
