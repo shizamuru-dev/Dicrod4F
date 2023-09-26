@@ -150,18 +150,18 @@ async def on_message(message: nextcord.Message):
         elif message.content.startswith(settings["prefix"] + "bing"):
             change_row_provider(id, g4f.Provider.Bing)
             await message.channel.send("The provider has been successfully changed to: **Bing**")
-        elif message.content.startswith(settings["prefix"] + "openassistant"):
-            change_row_provider(id, g4f.Provider.OpenAssistant)
-            await message.channel.send("The provider has been successfully changed to: **OpenAssistant**")
-        elif message.content.startswith(settings["prefix"] + "you"):
-            change_row_provider(id, g4f.Provider.You)
-            await message.channel.send("The provider has been successfully changed to: **You**")
-        elif message.content.startswith(settings["prefix"] + "chatgptAi"):
+        elif message.content.startswith(settings["prefix"] + "yqcloud"):
+            change_row_provider(id, g4f.Provider.Yqcloud)
+            await message.channel.send("The provider has been successfully changed to: **Yqcloud**")
+        elif message.content.startswith(settings["prefix"] + "acytoo"):
+            change_row_provider(id, g4f.Provider.Acytoo)
+            await message.channel.send("The provider has been successfully changed to: **Acytoo**")
+        elif message.content.startswith(settings["prefix"] + "chatgptai"):
             change_row_provider(id, g4f.Provider.ChatgptAi)
             await message.channel.send("The provider has been successfully changed to: **ChatgptAi**")
-        elif message.content.startswith(settings["prefix"] + "openai"):
-            change_row_provider(id, g4f.Provider.OpenaiChat)
-            await message.channel.send("The provider has been successfully changed to: **OpenAi**")
+        elif message.content.startswith(settings["prefix"] + "gptgo"):
+            change_row_provider(id, g4f.Provider.GptGo)
+            await message.channel.send("The provider has been successfully changed to: **GptGo**")
         else:
             history = get_row_history(id)
 
@@ -175,7 +175,7 @@ async def on_message(message: nextcord.Message):
 @bot.slash_command(name="clear", description="Clear message history")
 async def clear_command(interaction: nextcord.Interaction):
     clear_row_history(str(interaction.channel.id))
-    await interaction.send("Message history has been successfully cleared!")
+    await interaction.send("История сообщений успешно очищена!")
 
 
 @bot.slash_command(name="deepai", description="Changes provider to DeepAi")
@@ -190,16 +190,22 @@ async def bing_command(interaction: nextcord.Interaction):
     await interaction.send("The provider has been successfully changed to: **Bing**")
 
 
-@bot.slash_command(name="openassistant", description="Changes provider to OpenAssistant")
+@bot.slash_command(name="yqcloud", description="Changes provider to Yqcloud")
+async def bing_command(interaction: nextcord.Interaction):
+    change_row_provider(str(interaction.channel.id), g4f.Provider.Yqcloud)
+    await interaction.send("The provider has been successfully changed to: **Yqcloud**")
+
+
+@bot.slash_command(name="acytoo", description="Changes provider to Acytoo")
 async def openassistant_command(interaction: nextcord.Interaction):
-    change_row_provider(str(interaction.channel.id), g4f.Provider.OpenAssistant)
-    await interaction.send("The provider has been successfully changed to: **OpenAssistant**")
+    change_row_provider(str(interaction.channel.id), g4f.Provider.Acytoo)
+    await interaction.send("The provider has been successfully changed to: **Acytoo**")
 
 
-@bot.slash_command(name="you", description="Changes provider to You")
+@bot.slash_command(name="gptgo", description="Changes provider to GptGo")
 async def you_command(interaction: nextcord.Interaction):
-    change_row_provider(str(interaction.channel.id), g4f.Provider.You)
-    await interaction.send("The provider has been successfully changed to: **You**")
+    change_row_provider(str(interaction.channel.id), g4f.Provider.GptGo)
+    await interaction.send("The provider has been successfully changed to: **ChatgptAi**")
 
 
 @bot.slash_command(name="chatgptai", description="Changes provider to ChatgptAi")
@@ -208,27 +214,22 @@ async def chatgptAi_command(interaction: nextcord.Interaction):
     await interaction.send("The provider has been successfully changed to: **ChatgptAi**")
 
 
-@bot.slash_command(name="openai", description="Changes provider to OpenAi")
-async def bing_command(interaction: nextcord.Interaction):
-    change_row_provider(str(interaction.channel.id), g4f.Provider.OpenaiChat)
-    await interaction.send("The provider has been successfully changed to: **OpenAi**")
-
-
 @bot.slash_command(name="usage", description="Instructions for using the bot")
 async def usage_command(interaction: nextcord.Interaction):
-    embed = nextcord.Embed(title="How to use this?",
+    embed = nextcord.Embed(title="Как пользоваться ботом?",
                            description="So, to use this bot, just write the question you are interested in "
-                                       "\n\Also, for convenience, there are several commands, a list and a description "
-                                       "which you can see below / in the message panel...\n\n* **Usage** - "
-                                       "Show... is this a message?\n* **Clear** - Cleare message history\n* "
-                                       "**Deepai** - Change provider to DeepAi | GPT 3.5 \n* "
-                                       "**Bing** -  Change provider to Bing | GPT 4 (Default)\n* "
-                                       "**Chatgptai** - Change provider to ChatgptAi | GPT 3.5 (Most Stable)\n* **You** - "
-                                       "Change provider to You | GPT 3.5\n* **Openassistant** - Change "
-                                       "provider to OpenAssistant | GPT 3.5",
+                                       "\n\nAlso, for convenience, there are several commands, a list and a description "
+                                       "of which you can see below / in the message panel...\n\n* **Usage** - "
+                                       "Show... this message?\n* **Clear** - Clear chat history\n* "
+                                       "**Acytoo** - Changes provider to Acytoo | GPT 3.5 (Most stable)\n* "
+                                       "**Deepai** - Changes provider to DeepAi | GPT 3.5 \n* "
+                                       "**Bing** -  Changes provider to Bing | GPT 4 (Standart)\n* "
+                                       "**Chatgptai** - Changes provider to ChatgptAi | GPT 3.5 \n* **GptGo** - "
+                                       "ИChanges provider to GptGo | GPT 3.5\n* **yqcloud** - Changes  "
+                                       "provider to Yqcloud | GPT 3.5",
                            color=nextcord.Color.dark_theme())
     embed.set_thumbnail("https://media.zenfs.com/en/thedailybeast.com/ad5b0dbb8d02c304c9a8652c07771b3e")
-    embed.set_footer(text="What kind of providers? The provider is the site through which the ChatGPT is accessed ")
+    embed.set_footer(text="Что за провайдеры? Провайдер - этог сайт через который идёт доступ к ChatGPT ")
     await interaction.channel.send(embed=embed)
 
 
